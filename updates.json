@@ -1,0 +1,17 @@
+{
+  "addons": {
+    "direction-clipper@a-layer.io": {
+      "updates": [
+        {
+          "version": "0.6.3",
+          "update_link": "https://raw.githubusercontent.com/colangelo/direction-clipper-updates/main/direction_clipper-0.6.3.xpi",
+          "applications": {
+            "gecko": {
+              "strict_min_version": "142.0"
+            }
+          }
+        }
+      ]
+    }
+  }
+}
