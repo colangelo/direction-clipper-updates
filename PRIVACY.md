@@ -1,7 +1,7 @@
 # Direction (browser extension) — Privacy Policy
 
-_Last updated: 2026-09-06. Applies to the browser extension "Direction"
-(formerly "Direction Clipper") on Chrome, Firefox and Safari, version 0.7.0
+_Last updated: 2026-09-08. Applies to the browser extension "Direction"
+(formerly "Direction Clipper") on Chrome, Firefox and Safari, version 0.7.16
 and later._
 
 ## What the extension is
@@ -9,8 +9,10 @@ and later._
 The extension is the browser companion of **Direction**, a self-hosted
 personal knowledge server that **you** run and configure. It does two things:
 
-1. **Saves pages.** On *Save* it clips the current page (readable article text
-   and its images) into your Direction server.
+1. **Saves pages.** On *Save* it saves the current page into your Direction
+   server, in whichever mode you choose: the readable article with its images,
+   the same article as Markdown, or a full snapshot of the whole page as one
+   self-contained HTML file.
 2. **Closes tabs you have already decided to drop.** In Direction you triage
    your open tabs and mark some to be closed; the extension carries out those
    decisions in the browser.
@@ -20,12 +22,16 @@ The developer never receives any of your data.
 
 ## What data it handles, and where it goes
 
-- **The page you clip.** When you press *Save*, the extension extracts the
-  readable article from the current tab, fetches the page's images, and sends
-  them in one request to the **Direction server URL you entered in the options
-  page**. Nothing is sent until that URL is configured, and nothing is sent
-  unless you press *Save*. Tags and notes you type in the popup travel with the
-  clip.
+- **The page you save.** When you press *Save*, the extension reads the current
+  tab and sends the result in one request to the **Direction server URL you
+  entered in the options page**. Nothing is sent until that URL is configured,
+  and nothing is sent unless you press *Save*. What is read depends on the mode
+  you pick: the readable article and its images, the same article as Markdown,
+  or — in full snapshot mode — the entire page, which means fetching the page's
+  **subresources** (stylesheets, fonts and images) so they can be inlined into
+  one self-contained HTML file. Page scripts are excluded from a snapshot and
+  frames are not captured. The title, the byline, and any tags or note you type
+  in the popup travel with the clip.
 - **Tab closing.** This feature is **off until you explicitly bind the
   install** to a device in the options page. Once bound, every 30 minutes and
   when you press the button in the popup, the extension (a) downloads from your
@@ -41,7 +47,8 @@ The developer never receives any of your data.
   only as part of requests to your own server.
 
 The **only** network destinations are (1) the Direction server URL you
-configured and (2) the image hosts of a page you are clipping.
+configured and (2) the hosts serving the subresources (images, stylesheets,
+fonts) of a page you are saving.
 
 ## What it does not do
 
@@ -59,8 +66,9 @@ configured and (2) the image hosts of a page you are clipping.
 - `alarms`: run the tab-closing pass every 30 minutes once you have bound it.
   Browser extension background workers are short-lived, so a plain timer would
   not survive; an alarm is the supported way to wake up on a schedule.
-- Host access to all sites (`<all_urls>`): fetch images on any page you clip
-  when the page itself is blocked from fetching them (cross-origin images);
+- Host access to all sites (`<all_urls>`): fetch the subresources — images,
+  and in snapshot mode stylesheets and fonts too — of any page you save,
+  including when the page itself is blocked from fetching them (cross-origin);
   reach whatever host your Direction server runs on; and read the URLs of open
   tabs so close decisions can be matched. No `tabs` permission is requested.
 
