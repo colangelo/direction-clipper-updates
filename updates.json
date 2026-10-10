@@ -154,6 +154,15 @@
               "strict_min_version": "142.0"
             }
           }
+        },
+        {
+          "version": "0.8.1",
+          "update_link": "https://raw.githubusercontent.com/colangelo/direction-clipper-updates/main/direction_clipper-0.8.1.xpi",
+          "applications": {
+            "gecko": {
+              "strict_min_version": "142.0"
+            }
+          }
         }
       ]
     }
